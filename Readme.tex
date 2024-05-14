@@ -1,0 +1,322 @@
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and export to LaTeX again.
+
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{epstopdf}
+\usepackage[table]{xcolor}
+\usepackage{matlab}
+\usepackage[paperheight=795pt,paperwidth=614pt,top=72pt,bottom=72pt,right=72pt,left=72pt,heightrounded]{geometry}
+
+\sloppy
+\epstopdfsetup{outdir=./}
+\graphicspath{ {./Readme_media/} }
+
+\begin{document}
+
+\matlabtitle{\textbf{Readme}}
+
+\begin{par}
+\begin{flushleft}
+Dans ce live script je détaille l'exploitation de tous les scripts conçu dans le cadre de mon stage.
+\end{flushleft}
+\end{par}
+
+\matlabheading{Chargement des données d'IMU}
+
+\begin{par}
+\begin{flushleft}
+Les données d'IMUs collectées avec l'application sensor logger sont enregistrées en csv, et sont chargé dans l'environnement de travail avec la fonction \texttt{\textbf{readData}}\textbf{, }elle prend en argument le \textbf{chemin d'accès} du dossier contenant les fichiers \textit{.csv} et retourne \textbf{l'accéleration} en \textit{m/s\textasciicircum{}2} \texttt{(Nx3)}, la \textbf{vitesse angulaire} en rad/s \texttt{(Nx3)}, \textbf{l'intensité du champs magnétique} en \textit{microTesla} \texttt{(Nx3)},\textbf{ l'orientation} en \textbf{quaternion} et suivant les \textbf{angles d'euler} (yaw, roll, et pitch) en \textit{rad/s} \texttt{(Nx3).}
+\end{flushleft}
+\end{par}
+
+\begin{matlabcode}
+[acc, gyro, magne, quat, yrp] = readData('circle_slow');
+
+nom_acc = 'accélometre';
+nom_gyro = 'gyroscope';
+nom_magne = 'magnétometre';
+nom_quat = 'quaternion';
+nom_yrp = 'yrp angles';
+
+donnees = {acc(1:10,:), gyro(1:10,:), magne(1:10,:), quat(1:10,:), yrp(1:10,:)};
+noms = {nom_acc, nom_gyro, nom_magne, nom_quat, nom_yrp};
+
+for i = 1:numel(donnees)
+    disp(['Données de ', noms{i}, ':']);
+    disp(donnees{i});
+end
+\end{matlabcode}
+\begin{matlaboutput}
+Données de accélometre:
+         0         0         0
+         0         0         0
+   -0.0221   -0.1928   -0.0080
+   -0.0111   -0.1588    0.0174
+   -0.0963   -0.1393   -0.0492
+   -0.1287   -0.0970   -0.1170
+   -0.1173   -0.0367   -0.1861
+   -0.1017   -0.0564   -0.1494
+   -0.1508   -0.1298   -0.0381
+   -0.1076   -0.1711    0.0290
+Données de gyroscope:
+   -0.1808   -0.2627   -0.0168
+   -0.1830   -0.2808   -0.0232
+   -0.1915   -0.2787   -0.0274
+   -0.2181   -0.2563   -0.0338
+   -0.2490   -0.2382   -0.0391
+   -0.2671   -0.2446   -0.0338
+   -0.2831   -0.2659   -0.0306
+   -0.3033   -0.3000   -0.0296
+   -0.3246   -0.3415   -0.0264
+   -0.3395   -0.3884   -0.0168
+Données de magnétometre:
+   -6.8250   -1.4438  -34.9688
+   -7.2938   -1.7438  -35.2688
+   -7.0875   -1.7063  -35.0250
+   -7.0313   -1.8188  -34.9313
+   -7.1250   -1.8750  -34.7438
+   -6.9750   -1.7625  -34.8375
+   -7.1438   -1.6500  -34.6875
+   -7.2750   -1.6500  -34.6500
+   -7.3688   -1.6688  -34.5375
+   -7.3125   -1.5375  -34.4062
+Données de quaternion:
+      0.98978 + 0.074258i - 0.091856j - 0.079857k
+      0.98896 + 0.073363i - 0.092573j - 0.089467k
+      0.98754 + 0.059993i -  0.09325j -  0.11164k
+      0.98648 + 0.053312i - 0.094088j -  0.12313k
+      0.98404 + 0.047823i - 0.094283j -  0.14314k
+      0.98193 + 0.043961i - 0.094474j -  0.15799k
+      0.98029 +   0.0413i - 0.095195j -   0.1681k
+      0.97879 + 0.038388i - 0.096198j -  0.17674k
+       0.9763 + 0.034285i - 0.097036j -  0.19038k
+      0.97411 + 0.030082i - 0.098139j -  0.20143k
+Données de yrp angles:
+    0.1469   -0.1731   -0.1624
+    0.1663   -0.1731   -0.1624
+    0.2130   -0.1733   -0.1398
+    0.2371   -0.1748   -0.1287
+    0.2783   -0.1740   -0.1214
+    0.3089   -0.1737   -0.1164
+    0.3297   -0.1748   -0.1132
+    0.3476   -0.1767   -0.1094
+    0.3759   -0.1783   -0.1041
+    0.3989   -0.1809   -0.0983
+\end{matlaboutput}
+
+\matlabheading{Implementation du filtre de Kalman et estimation de l'orientation}
+
+\begin{par}
+\begin{flushleft}
+L'implémentation du filtre de kalman se fait en utilisant la fonction \texttt{\textbf{ahrsfilter}} de la \texttt{\textbf{Sensor Fusion and Tracking Toolbox}}, disponible depuis la version \texttt{2018b} de Matlab. Si elle n'est pas disponible parmis packages suivez le lien suivant :  \href{https://fr.mathworks.com/videos/add-on-explorer-106745.html}{https://fr.mathworks.com/videos/add-on-explorer-106745.html}
+\end{flushleft}
+\end{par}
+
+\begin{matlabcode}
+% Fréquence d'acquisition des données d'IMU en Hz
+Fs = 100; 
+% Definition du filtre
+fuse = ahrsfilter('SampleRate',Fs)
+\end{matlabcode}
+\begin{matlaboutput}
+fuse = 
+  ahrsfilter with properties:
+
+                        SampleRate: 100               Hz      
+                  DecimationFactor: 1                         
+                AccelerometerNoise: 0.00019247        (m/s²)² 
+                    GyroscopeNoise: 9.1385e-05        (rad/s)²
+                 MagnetometerNoise: 0.1               (µT)²   
+               GyroscopeDriftNoise: 3.0462e-13        (rad/s)²
+           LinearAccelerationNoise: 0.0096236         (m/s²)² 
+          MagneticDisturbanceNoise: 0.5               (µT)²   
+     LinearAccelerationDecayFactor: 0.5                       
+    MagneticDisturbanceDecayFactor: 0.5                       
+     ExpectedMagneticFieldStrength: 50                µT      
+               InitialProcessNoise: [12⨯12 double]            
+                 OrientationFormat: 'quaternion'              
+
+\end{matlaboutput}
+\begin{matlabcode}
+% Estimation de l'orientation en quaternion 
+quat_est = fuse(acc,gyro,magne);
+% OU l'on peut aussi estimer la vitesse angulaire par le filtre
+%[quat_est, gyro_est] = fuse(acc,gyro,magne)
+\end{matlabcode}
+
+\matlabheadingtwo{Calcul de l'erreur d'estimation rms1}
+
+\begin{par}
+\begin{flushleft}
+L'erreur d'estimation de l'orientation est évaluée comme la \textit{\textbf{"root mean square error"}}  de la distance en quaternion entre la valeur estimée et la vérité terrain, elle implementé dans la fonction \texttt{\textbf{loss2qad.}}
+\end{flushleft}
+\end{par}
+
+\begin{matlabcode}
+rms1 = loss2qad(quat, quat_est)
+\end{matlabcode}
+\begin{matlaboutput}
+rms1 = 79.5513
+\end{matlaboutput}
+
+\matlabheading{Optimisation du filtre }
+
+\begin{par}
+\begin{flushleft}
+Le filtre crée precedent possède des paramètres qui influent sur la qualité de l'estimation, alors il est necessaire d'avoir les bonnes valeurs ou faire une bonne optimisation de ces derniers, à cet effet Matlab prose une fonction pour le faire \texttt{\textbf{tune}}\textbf{, }qui se sert de l'orientation en vérité de terrain pour optimiser les paramètres du filtres.
+\end{flushleft}
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+La fonction \texttt{\textbf{tuneKF}}\textbf{ }prend en paramètre les données d'accéleration, de vitesse angulaire, d'intensité du champs magnetique, la vérite terrain de l'orientation en quaternion et le filtre a optimisé et retourne les paramètres optimisé du filtre dans une structure matlab.
+\end{flushleft}
+\end{par}
+
+\begin{matlabcode}
+filterParams = tuneKF(acc,gyro,magne,quat,fuse)
+\end{matlabcode}
+\begin{matlaboutput}
+filterParams = 
+    Value: [4.4946e-04 1.5766e-06 13.4355 2.0968e-16 1.2930 26.7894 1.0000 1.0000]
+     Name: 'AccelerometerNoiseGyroscopeNoiseMagnetometerNoiseGyroscopeDriftNoiseLinearAccelerationNoiseMagneticDisturbanceNoiseLinearAccelerationDecayFactorMagneticDisturbanceDecayFactor'
+
+\end{matlaboutput}
+\begin{matlabcode}
+% Estimation de l'orientation avec le filtre optimisé 
+quat_estOpt = fuse(acc,gyro,magne);
+\end{matlabcode}
+
+\matlabheadingtwo{Calcul de la nouvelle erreur d'estimation rms2}
+
+\begin{matlabcode}
+rms2 = loss2qad(quat, quat_estOpt)
+\end{matlabcode}
+\begin{matlaboutput}
+rms2 = 24.6485
+\end{matlaboutput}
+
+\matlabheadingthree{Comparaison de rms1 et rms2}
+
+\begin{par}
+\begin{flushleft}
+\texttt{\textbf{rms1 = 79.553  \textless{} rms2 = 24.6485, }}le filtre optimisé est plus performant.
+\end{flushleft}
+\end{par}
+
+\matlabheading{Estimation de la trajectoire tridimensionnelle }
+
+\begin{par}
+\begin{flushleft}
+L'estimation de la trajectoire tridimensionnelle se fait avec la fonction \texttt{\textbf{handPosition, }}qui prend en paramètre \textbf{l'orientation} suivant les angles d'euler yaw (axe z), roll (axe y), pitch (axe x) en rad/s, la \textbf{longueur du bras}, et la \textbf{distance du centre de pression (COP) à l'épaule }et renvoie la position en x, y et z.
+\end{flushleft}
+\end{par}
+
+\begin{matlabcode}
+% Conversion de l'orientation suivant les angles d'euler
+yrp_est = euler(quat_estOpt,'ZYX', 'frame');
+
+% Définition des longueurs de bras et distance COP-épaule
+armLength = 0.224;
+cop2shoulder = 0.0448;
+% Calcul de la trajectoire
+pos3D = handPosition(yrp_est, armLength, cop2shoulder);
+size(pos3D)
+\end{matlabcode}
+\begin{matlaboutput}
+ans = 1x2    
+           3        1902
+
+\end{matlaboutput}
+
+\matlabheading{Estimation de la surface et le volume de travail et tracé de la trajectoire 3D}
+
+\begin{par}
+\begin{flushleft}
+L'estimation de la surface et du volume de travail se fait avec la fonction plotPos3D et trace aussi la trajectoire 3D en niveau de couleur (peut être mis en \texttt{\%commentaire} si non necessaire)
+\end{flushleft}
+\end{par}
+
+\begin{matlabcode}
+[surf, vol] = plotPos3D(pos3D)
+\end{matlabcode}
+\begin{center}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_0.png}
+\end{center}
+\begin{matlaboutput}
+surf = 0.1815
+vol = 0.0043
+\end{matlaboutput}
+
+\matlabheading{Evaluation des descripteurs de finesse : Travel path, jerk, surface et volume de travail}
+
+\begin{par}
+\begin{flushleft}
+La fonction \texttt{\textbf{assesment }}prend en paramètre la position 3D (3xN), les accélérations (Nx3) , les vitesses angulaires (Nx3) et la longueur du bras et renvoie la \textbf{surface}, \textbf{le volume de travail}, \textbf{la vitesse}, la \textbf{norme de l'accéleration}, le \textbf{jerk} et le \textbf{travel path.}
+\end{flushleft}
+\end{par}
+
+\begin{matlabcode}
+[surface,volume,velocity,acceleration,Jerk,TP] = assesment(pos3D,acc,gyro,armLength)
+\end{matlabcode}
+\begin{center}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_1.png}
+\end{center}
+\begin{center}
+\includegraphics[width=\maxwidth{56.196688409433015em}]{figure_2.png}
+\end{center}
+\begin{matlaboutput}
+surface = 0.1815
+volume = 0.0043
+velocity = 1x1901    
+    0.0715    0.0753    0.0760    0.0758    0.0777    0.0815    0.0873    0.0958    0.1057    0.1156    0.1226    0.1226    0.1192    0.1136    0.1053    0.1012    0.1025    0.1071    0.1157    0.1261    0.1331    0.1320    0.1244    0.1200    0.1219    0.1235    0.1222    0.1112    0.0875    0.0713    0.0590    0.0462    0.0353    0.0300    0.0296    0.0214    0.0142    0.0158    0.0157    0.0158    0.0185    0.0176    0.0200    0.0312    0.0418    0.0482    0.0579    0.0674    0.0701    0.0612
+
+acceleration = 1x1901    
+         0         0    0.1943    0.1601    0.1763    0.1992    0.2230    0.1893    0.2026    0.2042    0.2447    0.3448    0.4005    0.5455    0.5020    0.3491    0.2292    0.1491    0.1690    0.2665    0.3210    0.1683    0.0777    0.1843    0.5275    1.1022    1.9249    2.2360    2.1496    2.0342    1.6243    1.3141    1.0900    0.7809    0.8110    0.7403    0.6678    0.7151    0.8208    0.8081    0.7396    0.6403    0.6391    0.5034    0.3760    0.3445    0.3064    0.2493    0.1736    0.1684
+
+Jerk = 1x1900    
+         0    0.1943   -0.0341    0.0162    0.0228    0.0238   -0.0336    0.0132    0.0016    0.0405    0.1001    0.0557    0.1450   -0.0435   -0.1529   -0.1199   -0.0801    0.0198    0.0976    0.0545   -0.1527   -0.0906    0.1066    0.3432    0.5747    0.8227    0.3110   -0.0863   -0.1154   -0.4099   -0.3102   -0.2241   -0.3091    0.0301   -0.0707   -0.0725    0.0473    0.1057   -0.0127   -0.0685   -0.0993   -0.0012   -0.1357   -0.1274   -0.0315   -0.0381   -0.0571   -0.0757   -0.0053   -0.0494
+
+TP = 4.4739
+\end{matlaboutput}
+
+\matlabheading{Evaluation de la géneralisation du filtre de kalman}
+
+\begin{par}
+\begin{flushleft}
+Diverses trajectoires ont été generées (08) afin d'évaluer la géneralisation du filtre de kalman.
+\end{flushleft}
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+\textit{\textbf{Protocole mis en oeuvre: }}une trajectoire de référence est sélectionnée, puis un filtre est ajusté pour optimiser son comportement sur cette trajectoire. Ensuite, ce filtre optimisé est évalué en utilisant les autres trajectoires. Pour ces trajectoires supplémentaires, nous itérons le processus d’optimisation en ajus-tant un nouveau filtre, et nous évaluons les descripteurs de ces trajectoires en les comparant à la trajectoire de référence précédemment établie.
+\end{flushleft}
+\end{par}
+
+\begin{par}
+\begin{flushleft}
+Le script validation implémente ce protocole et stocke le résultats dans la structure \texttt{\textbf{Validation}}, \textit{i.e. }les erreurs loss1 entre les descripteurs évaluée sur la trajectoire de réference et ceux évalués sur les autres trajectoires.
+\end{flushleft}
+\end{par}
+
+\begin{matlabcode}
+% Exécution du script
+% validation
+% Validation est la structure qui stocke erreurs dans des tableaux 
+% circle_slow2circle_fast est l'erreur des descripteurs avec comme
+% trajectoire de réference circle_slow et la trajectoire courante
+% circle_fast
+\end{matlabcode}
+
+
+\end{document}
